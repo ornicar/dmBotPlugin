@@ -1,0 +1,19 @@
+parameters:
+
+  dm_bot_configuration_form.class:    dmBotConfigurationForm  # Form to configure the bot
+
+  dm_bot.class:                       dmBot                   # Finds pages to browse
+  dm_bot.options:
+    limit:                            10
+
+services:
+
+  dm_bot_configuration_form:
+    class:                            %dm_bot_configuration_form.class%
+    shared:                           false
+    arguments:                        []
+
+  dm_bot:
+    class:                            %dm_bot.class%
+    shared:                           false
+    arguments:                        [ @helper, %dm_bot.options% ]

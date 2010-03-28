@@ -1,0 +1,11 @@
+css:
+
+  dmBotPlugin:
+
+    style:          style
+
+js:
+
+  dmBotPlugin:
+
+    ctrl:           ctrl

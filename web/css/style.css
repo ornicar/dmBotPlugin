@@ -1,0 +1,9 @@
+.dm_bot_urls {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.dm_bot_urls td span.status {
+  display: block;
+  height: 16px;
+}

@@ -1,0 +1,5 @@
+indexSuccess:
+
+  stylesheets:  [ admin.dataTable, dmBotPlugin.style ]
+
+  javascripts:  [ dmBotPlugin.ctrl ]
