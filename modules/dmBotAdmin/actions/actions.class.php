@@ -14,7 +14,7 @@ class dmBotAdminActions extends dmAdminBaseActions
       $this->bot = $this->getServiceContainer()
       ->setParameter('dm_bot.options', $this->form->getValues())
       ->getService('dm_bot')
-      ->setBaseUrl($this->getService('script_name_resolver')->get('front', 'prod'))
+      ->setBaseUrl($request->getAbsoluteUrlRoot())
       ->init();
     }
   }

@@ -1,9 +1,49 @@
-.dm_bot_urls {
-  max-height: 300px;
+.dm_form.list .dm_form_element {
+  margin: 0.5em 0;
+}
+.dm_form.list .dm_form_element > select {
+  width: auto;
+}
+
+div.urls_container {
+  max-height: 400px;
   overflow: auto;
 }
 
-.dm_bot_urls td span.status {
+div.dm_bot_urls div.control_bar > * {
+  float: left;
+  margin-right: 1em;
+  height: 2em;
+  line-height: 2em;
+}
+
+div.dm_bot_urls div.progress {
+  border: 1px solid #D3D3D3;
+  margin: 5px 0;
+  position: relative;
+  height: 25px;
+}
+
+div.dm_bot_urls div.progress_bar {
+  width: 0%;
+  height: 25px;
+  position: absolute;
+  background: url(../../dmCorePlugin/lib/jquery-ui/css/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x center;
+}
+
+div.dm_bot_urls div.progress_text {
+  height: 25px;
+  line-height: 25px;
+  text-indent: 380px;
+  font-weight: bold;
+  position: absolute;
+}
+
+div.dm_bot_urls tr.current {
+  background-color: #FFFAA2;
+}
+
+div.dm_bot_urls td span.status {
   display: block;
   height: 16px;
 }

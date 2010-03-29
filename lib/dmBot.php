@@ -37,16 +37,52 @@ class dmBot extends dmConfigurable
 
   public function render($options = array())
   {
+    $nbPages = $this->getNbPages();
+    
     $table = $this->helper->table($options)
     ->useStrip(true)
-    ->head('Url', 'Status');
+    ->head('#', 'Url', 'Status', 'Time');
 
-    foreach($this->getPages() as $page)
+    foreach($this->getPages() as $index => $page)
     {
-      $table->body($this->baseUrl.'/'.$page->_getI18n('slug'), '<span class="status"></span>');
+      $url = $this->getPageUrl($page);
+      $statusCode = $this->getPageStatusCode($page);
+      
+      $table->body(
+        ($index+1).'/'.$nbPages,
+        $this->helper->tag('span.link', array('data-status-code' => $statusCode),
+          $this->helper->link($url)->text($url)
+        ),
+        '<span class="status"></span>',
+        '<span class="time"></span>'
+      );
     }
 
     return $table->render();
+  }
+
+  protected function getPageUrl(DmPage $page)
+  {
+    return $this->baseUrl.'/'.$page->_getI18n('slug');
+  }
+
+  protected function getPageStatusCode(DmPage $page)
+  {
+    $statusCode = 200;
+    
+    if('main' === $page->get('module'))
+    {
+      if('error404' === $page->get('action'))
+      {
+        $statusCode = 404;
+      }
+      elseif('signin' === $page->get('action'))
+      {
+        $statusCode = 401;
+      }
+    }
+
+    return $statusCode;
   }
 
   public function getPages()
