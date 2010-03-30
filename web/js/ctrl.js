@@ -65,7 +65,8 @@
       url = $('span.link', $trs[index]).text();
       start = new Date().valueOf();
       $.ajax({
-        url:      url,
+        cache:    true,
+        url:      url+"?dm_bot="+start,
         success:  function()
         {
           complete(true, 200, start);
