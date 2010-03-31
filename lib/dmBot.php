@@ -17,7 +17,8 @@ class dmBot extends dmConfigurable
   public function getDefaultOptions()
   {
     return array(
-      'limit' => 10
+      'limit'       => 20,
+      'only_active' => true
     );
   }
 
@@ -40,7 +41,7 @@ class dmBot extends dmConfigurable
     $nbPages = $this->getNbPages();
     
     $table = $this->helper->table($options)
-    ->useStrip(true)
+    ->useStrip(false)
     ->head('#', 'Url', 'Status', 'Time');
 
     foreach($this->getPages() as $index => $page)
@@ -49,7 +50,7 @@ class dmBot extends dmConfigurable
       $statusCode = $this->getPageStatusCode($page);
       
       $table->body(
-        ($index+1).'/'.$nbPages,
+        ($index+1),
         $this->helper->tag('span.link', array('data-status-code' => $statusCode),
           $this->helper->link($url)->text($url)
         ),
@@ -72,11 +73,11 @@ class dmBot extends dmConfigurable
     
     if('main' === $page->get('module'))
     {
-      if('error404' === $page->get('action'))
+      if('error404' === $page->get('action') || !$page->get('is_active'))
       {
         $statusCode = 404;
       }
-      elseif('signin' === $page->get('action'))
+      elseif('signin' === $page->get('action') || $page->get('is_secure'))
       {
         $statusCode = 401;
       }
@@ -97,9 +98,27 @@ class dmBot extends dmConfigurable
 
   protected function getQuery()
   {
-    return dmDb::query('DmPage p')
-    ->withI18n()
-    ->limit($this->getOption('limit'));
+    $query = dmDb::query('DmPage p')->withI18n();
+
+    if($this->getOption('limit'))
+    {
+      $query->limit($this->getOption('limit'));
+    }
+    
+    if($this->getOption('only_active'))
+    {
+      $query->addWhere('pTranslation.is_active = ?', true);
+    }
+
+    foreach(array('slug', 'name', 'title') as $dbField)
+    {
+      if($this->getOption($dbField.'_pattern'))
+      {
+        $query->addWhere('pTranslation.'.$dbField.' LIKE ?', str_replace('*', '%', $this->getOption($dbField.'_pattern')));
+      }
+    }
+
+    return $query;
   }
 
   public function __toString()
