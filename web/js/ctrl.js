@@ -7,7 +7,8 @@
       return;
     }
 
-    $('div.dm_bot table').dataTable({
+    var $element = $('div.dm_bot'),
+    $table = $element.find('table').dataTable({
       "bPaginate": false,
       "bJQueryUI": true,
       "bLengthChange": false,
@@ -15,9 +16,7 @@
       "bSort": true,
       "bInfo": false,
       "bAutoWidth": false
-    });
-
-    var $element = $('div.dm_bot'),
+    }),
     $trs = $element.find('.dm_bot_urls tbody tr'),
     $control = $element.find('div.control_bar'),
     $progressBar = $element.find('div.progress_bar'),
@@ -32,12 +31,13 @@
     {
       time = new Date().valueOf() - start;
 
-      $('span.status', $trs[index])
+      updateCell($('span.status', $trs[index])
       .removeClass('s16_gear')
       .addClass('s16_'+(isOk ? 'tick' : 'error'))
-      .text(status);
+      .text(status)
+      .parent());
 
-      $('span.time', $trs[index]).text(time+"ms");
+      updateCell($('span.time', $trs[index]).text(time+"ms").parent());
 
       index++;
 
@@ -85,6 +85,11 @@
           complete(isOk, XMLHttpRequest.status, start);
         }
       });
+    },
+    updateCell = function(cell)
+    {
+      var aPos = $table.fnGetPosition(cell[0]);
+      $table.fnUpdate(cell.html(), aPos[0], aPos[1] );
     },
     end = function()
     {

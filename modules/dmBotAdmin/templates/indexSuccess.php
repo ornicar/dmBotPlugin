@@ -1,6 +1,9 @@
 <?php
 
-echo _tag('div.dm_box.little.mt10',
+echo _open('div.clearfix.mt10');
+
+echo _tag('div.dm_box.fleft style="width:33%"',
+  _tag('p.title', 'Find pages').
   _tag('div.dm_box_inner',
     $form->render('.dm_form.list method=get')
   )
@@ -8,7 +11,7 @@ echo _tag('div.dm_box.little.mt10',
 
 if(isset($bot))
 {
-  echo _tag('div.dm_box.medium.mt10.dm_bot',
+  echo _tag('div.dm_box.dm_bot style="margin-left:34%"',
     _tag('p.title', 'Browsing '.$bot->getNbPages().' pages').
     _tag('div.dm_box_inner.dm_data.dm_bot_urls',
       _tag('div.control_bar.clearfix',
@@ -22,3 +25,5 @@ if(isset($bot))
     )
   );
 }
+
+echo _close('div');
