@@ -4,6 +4,10 @@
 .dm_form.list .dm_form_element > select {
   width: auto;
 }
+.dm_form.list .dm_help_wrap {
+  color: #888;
+  margin-left: 30%;
+}
 
 div.urls_container {
   max-height: 400px;
@@ -46,4 +50,19 @@ div.dm_bot_urls tr.current {
 div.dm_bot_urls td span.status {
   display: block;
   height: 16px;
+}
+
+div.dm_bot_urls .css_right {
+   float: right;
+}
+.dm div.dm_bot_urls thead th {
+  cursor:pointer;
+  font-weight:bold;
+  padding:3px 18px 3px 10px;
+  background-position: 50% 50%;
+}
+
+.dm div.dm_bot_urls div.fg-toolbar {
+  display: none;
+  boder: none;
 }

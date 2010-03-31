@@ -6,6 +6,17 @@
     {
       return;
     }
+
+    $('div.dm_bot table').dataTable({
+      "bPaginate": false,
+      "bJQueryUI": true,
+      "bLengthChange": false,
+      "bFilter": false,
+      "bSort": true,
+      "bInfo": false,
+      "bAutoWidth": false
+    });
+
     var $element = $('div.dm_bot'),
     $trs = $element.find('.dm_bot_urls tbody tr'),
     $control = $element.find('div.control_bar'),
@@ -44,16 +55,13 @@
       
       $trs.removeClass('current');
 
-      if(index < nb)
-      {
-        if(run)
-        {
-          process();
-        }
-      }
-      else
+      if(index >= nb)
       {
         end();
+      }
+      else if(run)
+      {
+        process();
       }
     },
     process = function()
@@ -76,7 +84,7 @@
           isOk = XMLHttpRequest.status == $('span.link', $trs[index]).attr('data-status-code');
           complete(isOk, XMLHttpRequest.status, start);
         }
-      })
+      });
     },
     end = function()
     {

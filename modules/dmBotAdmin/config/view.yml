@@ -2,4 +2,4 @@ indexSuccess:
 
   stylesheets:  [ admin.dataTable, dmBotPlugin.style ]
 
-  javascripts:  [ dmBotPlugin.ctrl ]
+  javascripts:  [ lib.dataTable, dmBotPlugin.ctrl ]
