@@ -2,11 +2,18 @@
 
 echo _open('div.clearfix.mt10');
 
-echo _tag('div.dm_box.fleft style="width:33%"',
-  _tag('p.title', 'Find pages').
-  _tag('div.dm_box_inner',
-    $form->render('.dm_form.list method=get')
-  )
+echo _tag('div.fleft style="width:33%"',
+  _tag('div.dm_box',
+    _tag('p.title', 'Find pages').
+    _tag('div.dm_box_inner',
+      $form->render('.dm_form.list method=get')
+    )
+  ).
+  _tag('div.help_box', markdown('Notes:
+
+  - Find some page with the form above, then run the bot to browse them
+  - The time displayed for each page is not the page creation time, but the time required to send the request and receive the response'
+  ))
 );
 
 if(isset($bot))
